@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Poster Generator | IncomeAIHub by M.Dev</title>
+<meta name="description" content="Business, sale, festival aur event posters seconds mein banayein — free templates, drag-drop text, HD download.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+/* ================= DESIGN TOKENS ================= */
+:root{
+  --bg-0:#0b0d10;
+  --bg-1:#12151a;
+  --bg-2:#181c22;
+  --panel:#15181e;
+  --border:#262b33;
+  --border-soft:#1e222a;
+  --gold:#d4af6a;
+  --gold-soft:#f0d9a8;
+  --emerald:#3fbf8f;
+  --violet:#8b7bd8;
+  --text-1:#f2efe8;
+  --text-2:#a9adb6;
+  --text-3:#6b7078;
+  --danger:#e0654f;
+  --shadow:0 20px 50px -20px rgba(0,0,0,.6);
+  --radius:14px;
+  --radius-sm:9px;
+  font-family:'DM Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--bg-0);color:var(--text-1);}
+body{
+  min-height:100vh;
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(ellipse 900px 500px at 12% -10%, rgba(139,123,216,.14), transparent 60%),
+    radial-gradient(ellipse 900px 500px at 100% 0%, rgba(63,191,143,.10), transparent 60%),
+    var(--bg-0);
+}
+h1,h2,h3,.font-display{font-family:'Syne',sans-serif;}
+.mono{font-family:'DM Mono',monospace;}
+a{color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+::selection{background:var(--gold);color:#0b0d10;}
+::-webkit-scrollbar{width:8px;height:8px;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px;}
+
+/* ============ TOPBAR ============ */
+.topbar{
+  position:sticky;top:0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;
+  background:rgba(11,13,16,.85);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border-soft);
+}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-mark{
+  width:34px;height:34px;border-radius:9px;
+  background:linear-gradient(135deg,var(--gold),var(--violet));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne';font-weight:800;color:#0b0d10;font-size:16px;
+}
+.brand-name{font-family:'Syne';font-weight:700;font-size:15px;letter-spacing:.2px;}
+.brand-sub{font-size:11px;color:var(--text-3);font-family:'DM Mono';}
+.topbar-actions{display:flex;align-items:center;gap:10px;}
+.btn{
+  border:1px solid var(--border);background:var(--panel);color:var(--text-1);
+  padding:9px 16px;border-radius:10px;font-size:13.5px;font-weight:600;
+  display:inline-flex;align-items:center;gap:7px;transition:.15s;white-space:nowrap;
+}
+.btn:hover{border-color:var(--gold);transform:translateY(-1px);}
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold),#b8935a);
+  color:#0b0d10;border:none;
+}
+.btn-gold:hover{filter:brightness(1.08);}
+.btn-ghost{background:transparent;border:1px solid var(--border);}
+.btn-sm{padding:7px 12px;font-size:12.5px;}
+.pill{
+  font-family:'DM Mono';font-size:11px;padding:5px 10px;border-radius:20px;
+  border:1px solid var(--border);color:var(--text-2);
+}
+.pill.unlocked{color:var(--emerald);border-color:rgba(63,191,143,.4);background:rgba(63,191,143,.08);}
+.pill.locked{color:var(--gold-soft);border-color:rgba(212,175,106,.35);background:rgba(212,175,106,.06);}
+
+/* ============ LAYOUT ============ */
+.app{
+  display:grid;
+  grid-template-columns:260px 1fr 300px;
+  gap:18px;
+  padding:20px 24px 60px;
+  max-width:1500px;margin:0 auto;
+}
+@media(max-width:1180px){
+  .app{grid-template-columns:1fr;}
+}
+.panel{
+  background:var(--panel);border:1px solid var(--border-soft);
+  border-radius:var(--radius);padding:16px;
+}
+.panel-title{
+  font-family:'Syne';font-size:13px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.6px;color:var(--gold-soft);
+  margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;
+}
+
+/* ---- Left: Templates & Sizes ---- */
+.left-col{display:flex;flex-direction:column;gap:16px;}
+.size-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.size-btn{
+  border:1px solid var(--border);background:var(--bg-1);color:var(--text-2);
+  border-radius:9px;padding:8px 6px;font-size:11.5px;text-align:center;
+  transition:.15s;line-height:1.3;
+}
+.size-btn span{display:block;font-family:'DM Mono';font-size:10px;color:var(--text-3);margin-top:2px;}
+.size-btn.active,.size-btn:hover{border-color:var(--emerald);color:var(--text-1);background:rgba(63,191,143,.08);}
+
+.tmpl-list{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;padding-right:2px;}
+.tmpl-card{
+  position:relative;border:1px solid var(--border);border-radius:10px;overflow:hidden;
+  cursor:pointer;transition:.15s;background:var(--bg-1);
+}
+.tmpl-card:hover{border-color:var(--gold);}
+.tmpl-preview{height:64px;display:flex;align-items:center;justify-content:center;
+  font-family:'Syne';font-weight:800;font-size:12px;text-align:center;padding:6px;color:#fff;}
+.tmpl-label{font-size:11.5px;padding:6px 8px;color:var(--text-2);display:flex;justify-content:space-between;align-items:center;}
+.tmpl-lock{font-size:9px;color:var(--gold-soft);font-family:'DM Mono';}
+
+/* ---- Center: Canvas ---- */
+.canvas-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.canvas-toolbar{
+  display:flex;flex-wrap:wrap;gap:8px;width:100%;justify-content:center;
+  background:var(--panel);border:1px solid var(--border-soft);border-radius:12px;padding:10px;
+}
+.tb-btn{
+  border:1px solid var(--border);background:var(--bg-1);color:var(--text-2);
+  padding:8px 12px;border-radius:8px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px;
+}
+.tb-btn:hover{color:var(--text-1);border-color:var(--violet);}
+.stage-shell{
+  background:repeating-conic-gradient(#1b1e24 0% 25%, #15171b 0% 50%) 50%/22px 22px;
+  border-radius:var(--radius);border:1px solid var(--border-soft);
+  padding:18px;box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:center;
+  max-width:100%;overflow:auto;
+}
+#posterCanvas{
+  background:#fff;display:block;border-radius:4px;box-shadow:0 10px 40px rgba(0,0,0,.5);
+  cursor:default;max-width:100%;height:auto;touch-action:none;
+}
+.canvas-hint{font-size:11.5px;color:var(--text-3);text-align:center;font-family:'DM Mono';}
+
+/* ---- Right: Layer/Style editor ---- */
+.right-col{display:flex;flex-direction:column;gap:16px;}
+.field{margin-bottom:12px;}
+.field label{
+  display:block;font-size:11.5px;color:var(--text-3);margin-bottom:6px;
+  font-family:'DM Mono';text-transform:uppercase;letter-spacing:.4px;
+}
+.field input[type=text],.field textarea,.field select{
+  width:100%;background:var(--bg-1);border:1px solid var(--border);
+  color:var(--text-1);border-radius:8px;padding:9px 10px;font-size:13.5px;font-family:'DM Sans';
+}
+.field textarea{resize:vertical;min-height:52px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+input[type=range]{width:100%;accent-color:var(--emerald);}
+input[type=color]{
+  width:100%;height:36px;border:1px solid var(--border);border-radius:8px;
+  background:var(--bg-1);padding:2px;cursor:pointer;
+}
+.swatches{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.swatch{width:22px;height:22px;border-radius:6px;border:1px solid rgba(255,255,255,.15);cursor:pointer;}
+.toggle-row{display:flex;gap:6px;}
+.toggle-btn{
+  flex:1;border:1px solid var(--border);background:var(--bg-1);color:var(--text-2);
+  padding:8px;border-radius:8px;font-size:13px;font-weight:700;
+}
+.toggle-btn.active{background:linear-gradient(135deg,var(--emerald),#2d9e75);color:#04150e;border-color:transparent;}
+.layer-list{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;}
+.layer-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 10px;border-radius:8px;border:1px solid var(--border);
+  background:var(--bg-1);font-size:12.5px;cursor:pointer;
+}
+.layer-item.active{border-color:var(--violet);background:rgba(139,123,216,.1);}
+.layer-item .li-actions{display:flex;gap:6px;}
+.li-actions button{background:none;border:none;color:var(--text-3);font-size:13px;padding:2px 4px;}
+.li-actions button:hover{color:var(--danger);}
+.empty-note{font-size:12px;color:var(--text-3);padding:10px 0;text-align:center;}
+
+/* ---- AI caption box ---- */
+.ai-box{display:flex;gap:8px;}
+.ai-box input{flex:1;}
+.ai-tips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.ai-tip{
+  font-size:11px;padding:5px 9px;border-radius:20px;border:1px dashed var(--border);
+  color:var(--text-3);cursor:pointer;
+}
+.ai-tip:hover{border-color:var(--emerald);color:var(--emerald);}
+
+/* ---- AdSense placeholders ---- */
+.ad-slot{
+  border:1px dashed var(--border);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-3);font-size:11px;font-family:'DM Mono';
+  min-height:90px;background:var(--bg-1);
+}
+
+/* ---- Modal ---- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(6,7,9,.72);backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;z-index:100;padding:20px;
+}
+.modal-overlay.show{display:flex;}
+.modal{
+  background:var(--bg-1);border:1px solid var(--border);border-radius:16px;
+  max-width:520px;width:100%;max-height:86vh;overflow-y:auto;padding:26px;
+  box-shadow:var(--shadow);
+}
+.modal h2{font-size:20px;margin-bottom:6px;}
+.modal .modal-sub{font-size:12.5px;color:var(--text-3);margin-bottom:18px;font-family:'DM Mono';}
+.modal-close{
+  float:right;background:none;border:none;color:var(--text-3);font-size:20px;line-height:1;
+}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin:16px 0;}
+.feature-list li{display:flex;gap:10px;font-size:13.5px;color:var(--text-2);align-items:flex-start;}
+.feature-list li::before{content:"✓";color:var(--emerald);font-weight:800;}
+.price-box{
+  background:linear-gradient(135deg,rgba(212,175,106,.12),rgba(139,123,216,.10));
+  border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;margin:14px 0;
+}
+.price-box .amt{font-family:'Syne';font-size:32px;font-weight:800;color:var(--gold-soft);}
+.price-box .old{font-size:13px;color:var(--text-3);text-decoration:line-through;margin-left:8px;}
+.price-box .note{font-size:11.5px;color:var(--text-3);margin-top:4px;font-family:'DM Mono';}
+.guide-body{font-size:13.5px;line-height:1.8;color:var(--text-2);}
+.guide-body h3{font-size:14px;color:var(--gold-soft);margin:14px 0 6px;font-family:'Syne';}
+.guide-body b{color:var(--text-1);}
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--bg-2);border:1px solid var(--emerald);color:var(--text-1);
+  padding:12px 20px;border-radius:10px;font-size:13px;z-index:200;
+  opacity:0;pointer-events:none;transition:.25s;box-shadow:var(--shadow);
+}
+.toast.show{opacity:1;transform:translate(-50%,-6px);}
+
+footer{
+  text-align:center;padding:26px 20px 40px;color:var(--text-3);font-size:11.5px;font-family:'DM Mono';
+  border-top:1px solid var(--border-soft);margin-top:20px;
+}
+footer a{color:var(--gold-soft);text-decoration:none;}
+
+@media(max-width:640px){
+  .topbar{padding:12px 14px;}
+  .brand-sub{display:none;}
+  .app{padding:14px 12px 40px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= TOPBAR ================= -->
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-mark">P</div>
+    <div>
+      <div class="brand-name">Poster Generator</div>
+      <div class="brand-sub">IncomeAIHub by M.Dev</div>
+    </div>
+  </div>
+  <div class="topbar-actions">
+    <span id="unlockPill" class="pill locked">🔒 Free Version</span>
+    <button class="btn btn-ghost btn-sm" onclick="openGuide()">📘 Hindi Guide</button>
+    <button class="btn btn-gold btn-sm" id="unlockTopBtn" onclick="openUnlockModal()">⚡ Unlock Pro</button>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div class="app">
+
+  <!-- LEFT: Sizes + Templates -->
+  <div class="left-col">
+    <div class="panel">
+      <div class="panel-title">Poster Size</div>
+      <div class="size-grid" id="sizeGrid"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Templates <span class="mono" style="font-size:10px;color:var(--text-3);">18 designs</span></div>
+      <div class="tmpl-list" id="tmplList"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Sponsored</div>
+      <div class="ad-slot">Ad Placeholder 300×90<br>(AdSense)</div>
+    </div>
+  </div>
+
+  <!-- CENTER: Canvas -->
+  <div class="canvas-wrap">
+    <div class="canvas-toolbar">
+      <button class="tb-btn" onclick="addTextLayer('heading')">➕ Heading</button>
+      <button class="tb-btn" onclick="addTextLayer('subheading')">➕ Subheading</button>
+      <button class="tb-btn" onclick="addTextLayer('body')">➕ Text Line</button>
+      <button class="tb-btn" onclick="triggerImageUpload()">🖼️ Background Image</button>
+      <button class="tb-btn" onclick="undo()">↶ Undo</button>
+      <button class="tb-btn" onclick="clearCanvas()">🗑️ Clear</button>
+      <button class="tb-btn" style="border-color:var(--emerald);color:var(--emerald);" onclick="downloadPoster()">⬇ Download HD</button>
+      <input type="file" id="bgImageInput" accept="image/*" style="display:none">
+    </div>
+
+    <div class="stage-shell">
+      <canvas id="posterCanvas" width="1080" height="1080"></canvas>
+    </div>
+    <div class="canvas-hint">Text ko drag karke move karein • Click karke select karein • Delete key se hataayein</div>
+  </div>
+
+  <!-- RIGHT: Editor -->
+  <div class="right-col">
+
+    <div class="panel">
+      <div class="panel-title">Text Style</div>
+      <div id="noSelection" class="empty-note">Koi text layer select karein ya nayi text add karein</div>
+      <div id="styleEditor" style="display:none;">
+        <div class="field">
+          <label>Content</label>
+          <textarea id="txtContent" oninput="updateSelected({content:this.value})"></textarea>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Font Size</label>
+            <input type="range" id="txtSize" min="14" max="160" oninput="updateSelected({fontSize:+this.value})">
+          </div>
+          <div class="field">
+            <label>Font</label>
+            <select id="txtFont" onchange="updateSelected({fontFamily:this.value})">
+              <option value="Syne">Syne (Display)</option>
+              <option value="DM Sans">DM Sans (Clean)</option>
+              <option value="DM Mono">DM Mono (Mono)</option>
+              <option value="Georgia">Georgia (Serif)</option>
+              <option value="Poppins, sans-serif">Poppins</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Color</label>
+          <input type="color" id="txtColor" oninput="updateSelected({color:this.value})">
+          <div class="swatches" id="colorSwatches"></div>
+        </div>
+        <div class="field">
+          <label>Style</label>
+          <div class="toggle-row">
+            <button class="toggle-btn" id="boldBtn" onclick="toggleStyle('bold')">B</button>
+            <button class="toggle-btn" id="italicBtn" onclick="toggleStyle('italic')">I</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Align</label>
+          <div class="toggle-row">
+            <button class="toggle-btn" onclick="updateSelected({align:'left'})">◀</button>
+            <button class="toggle-btn" onclick="updateSelected({align:'center'})">■</button>
+            <button class="toggle-btn" onclick="updateSelected({align:'right'})">▶</button>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;color:var(--danger);border-color:rgba(224,101,79,.4);" onclick="deleteSelected()">🗑️ Delete Layer</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Background</div>
+      <div class="field">
+        <label>Type</label>
+        <div class="toggle-row">
+          <button class="toggle-btn active" id="bgSolidBtn" onclick="setBgType('solid')">Solid</button>
+          <button class="toggle-btn" id="bgGradBtn" onclick="setBgType('gradient')">Gradient</button>
+        </div>
+      </div>
+      <div class="field" id="solidField">
+        <label>Color</label>
+        <input type="color" id="bgColor1" value="#181c22" oninput="setBgColor()">
+      </div>
+      <div class="field" id="gradField" style="display:none;">
+        <label>Gradient</label>
+        <div class="row2">
+          <input type="color" id="gradColor1" value="#3fbf8f">
+          <input type="color" id="gradColor2" value="#8b7bd8">
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Layers</div>
+      <div class="layer-list" id="layerList"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">✨ AI Caption Ideas</div>
+      <div class="ai-box">
+        <input type="text" id="aiTopic" placeholder="e.g. Diwali sale, GST filing...">
+        <button class="btn btn-sm btn-gold" onclick="generateCaptions()">Try</button>
+      </div>
+      <div class="ai-tips" id="aiTips"></div>
+      <div style="font-size:10.5px;color:var(--text-3);margin-top:8px;font-family:'DM Mono';">Pro users: real AI suggestions via ai-proxy</div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  © 2026 IncomeAIHub by M.Dev · Raipur, Chhattisgarh · Made for Indian freelancers, CA firms &amp; MSMEs
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<!-- ============ UNLOCK MODAL ============ -->
+<div class="modal-overlay" id="unlockModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('unlockModal')">×</button>
+    <h2 class="font-display">Poster Generator — Pro</h2>
+    <div class="modal-sub">One-time payment · Lifetime unlock · No subscription</div>
+    <ul class="feature-list">
+      <li>Saare 18+ premium templates unlock (festival, sale, hiring, GST reminder)</li>
+      <li>HD download bina watermark ke</li>
+      <li>Unlimited posters, unlimited downloads</li>
+      <li>AI caption generator (real AI suggestions)</li>
+      <li>Is device par hamesha ke liye unlock rahega</li>
+    </ul>
+    <div class="price-box">
+      <span class="amt">₹249</span><span class="old">₹899</span>
+      <div class="note">One-time · Lifetime Access · No recurring charge</div>
+    </div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;padding:13px;" onclick="startPayment()">🔓 Unlock Lifetime Access — ₹249</button>
+    <div style="text-align:center;margin-top:10px;font-size:11px;color:var(--text-3);font-family:'DM Mono';">Secure payment via Razorpay</div>
+  </div>
+</div>
+
+<!-- ============ HINDI GUIDE MODAL ============ -->
+<div class="modal-overlay" id="guideModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('guideModal')">×</button>
+    <h2 class="font-display">Poster Generator — Guide</h2>
+    <div class="modal-sub">Hindi mein poora istemal tareeka</div>
+    <div class="guide-body">
+      <h3>1. Size chunein</h3>
+      Bayi taraf se apna poster size select karein — Instagram Post, Story, Facebook Cover ya A4 Print.
+
+      <h3>2. Template ya blank canvas</h3>
+      Kisi <b>template</b> par click karke shuru karein, ya khud se text/background add karein.
+
+      <h3>3. Text add karein</h3>
+      Upar toolbar se <b>Heading</b>, <b>Subheading</b> ya <b>Text Line</b> add karein. Canvas par drag karke position set karein.
+
+      <h3>4. Style customize karein</h3>
+      Text select karke right panel se <b>font, size, color, bold/italic, alignment</b> badlein.
+
+      <h3>5. Background</h3>
+      Solid color, gradient, ya apni image upload karke background set karein.
+
+      <h3>6. Download</h3>
+      "Download HD" button se apna poster PNG format mein save karein. Free version mein halka watermark aata hai — <b>Pro unlock</b> karke watermark hataayein.
+
+      <h3>Support</h3>
+      Kisi bhi query ke liye apne purchase receipt par diye gaye contact par sampark karein.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ==================================================================
+   CONFIG — Supabase + Razorpay + Demo Mode (locked architecture)
+================================================================== */
+const CONFIG = {
+  TOOL_ID: 'poster-generator',
+  SUPABASE_URL: 'https://your-project.supabase.co',
+  SUPABASE_ANON_KEY: 'YOUR_SUPABASE_ANON_KEY',
+  RAZORPAY_KEY_ID: 'rzp_live_YOUR_KEY_ID',
+  PRICE_INR: 249,
+  DEMO_MODE: true // auto-true when placeholder credentials are detected
+};
+if (CONFIG.SUPABASE_URL.includes('your-project') || CONFIG.RAZORPAY_KEY_ID.includes('YOUR_KEY')) {
+  CONFIG.DEMO_MODE = true;
+}
+
+function getDeviceId(){
+  let id = localStorage.getItem('device_id_' + CONFIG.TOOL_ID);
+  if(!id){
+    id = 'dev_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+    localStorage.setItem('device_id_' + CONFIG.TOOL_ID, id);
+  }
+  return id;
+}
+function isUnlocked(){
+  return localStorage.getItem('unlocked_' + CONFIG.TOOL_ID) === 'true';
+}
+function setUnlocked(){
+  localStorage.setItem('unlocked_' + CONFIG.TOOL_ID, 'true');
+  refreshUnlockUI();
+}
+function refreshUnlockUI(){
+  const pill = document.getElementById('unlockPill');
+  const btn = document.getElementById('unlockTopBtn');
+  if(isUnlocked()){
+    pill.textContent = '✓ Pro Unlocked';
+    pill.className = 'pill unlocked';
+    btn.style.display = 'none';
+  } else {
+    pill.textContent = '🔒 Free Version';
+    pill.className = 'pill locked';
+    btn.style.display = 'inline-flex';
+  }
+  renderTemplates();
+}
+
+async function checkUnlockOnLoad(){
+  if(isUnlocked()) return refreshUnlockUI();
+  if(CONFIG.DEMO_MODE) return refreshUnlockUI();
+  try{
+    const res = await fetch(`${CONFIG.SUPABASE_URL}/functions/v1/check-unlock`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':CONFIG.SUPABASE_ANON_KEY},
+      body: JSON.stringify({ tool_id: CONFIG.TOOL_ID, device_id: getDeviceId() })
+    });
+    const data = await res.json();
+    if(data && data.unlocked) setUnlocked();
+  }catch(e){ console.warn('check-unlock skipped:', e.message); }
+  refreshUnlockUI();
+}
+
+function openUnlockModal(){ document.getElementById('unlockModal').classList.add('show'); }
+function openGuide(){ document.getElementById('guideModal').classList.add('show'); }
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+
+async function startPayment(){
+  if(CONFIG.DEMO_MODE){
+    showToast('Demo Mode: payment simulate ho raha hai...');
+    setTimeout(()=>{ setUnlocked(); closeModal('unlockModal'); showToast('✓ Pro Unlocked (Demo)'); }, 900);
+    return;
+  }
+  try{
+    const orderRes = await fetch(`${CONFIG.SUPABASE_URL}/functions/v1/create-order`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':CONFIG.SUPABASE_ANON_KEY},
+      body: JSON.stringify({ tool_id: CONFIG.TOOL_ID, amount: CONFIG.PRICE_INR * 100 })
+    });
+    const order = await orderRes.json();
+    const rzp = new Razorpay({
+      key: CONFIG.RAZORPAY_KEY_ID,
+      amount: CONFIG.PRICE_INR * 100,
+      currency: 'INR',
+      name: 'IncomeAIHub — Poster Generator',
+      description: 'Lifetime Pro Unlock',
+      order_id: order.id,
+      handler: async function(response){
+        const verifyRes = await fetch(`${CONFIG.SUPABASE_URL}/functions/v1/verify-payment`,{
+          method:'POST',
+          headers:{'Content-Type':'application/json','apikey':CONFIG.SUPABASE_ANON_KEY},
+          body: JSON.stringify({ ...response, tool_id: CONFIG.TOOL_ID, device_id: getDeviceId() })
+        });
+        const verify = await verifyRes.json();
+        if(verify && verify.success){ setUnlocked(); closeModal('unlockModal'); showToast('✓ Pro Unlocked!'); }
+        else showToast('Payment verify nahi ho paya, support se sampark karein.');
+      },
+      theme:{ color:'#d4af6a' }
+    });
+    rzp.open();
+  }catch(e){
+    console.error(e);
+    showToast('Payment start nahi ho paya. Baad mein try karein.');
+  }
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+/* ==================================================================
+   POSTER STATE
+================================================================== */
+const canvas = document.getElementById('posterCanvas');
+const ctx = canvas.getContext('2d');
+
+const SIZES = [
+  {id:'ig-post', name:'Instagram Post', w:1080, h:1080},
+  {id:'ig-story', name:'Instagram Story', w:1080, h:1920},
+  {id:'fb-post', name:'Facebook Post', w:1200, h:630},
+  {id:'yt-thumb', name:'YouTube Thumb', w:1280, h:720},
+  {id:'a4-print', name:'A4 Print', w:1240, h:1754},
+  {id:'square', name:'Square Flyer', w:1000, h:1000},
+];
+
+const state = {
+  sizeId: 'ig-post',
+  w: 1080, h: 1080,
+  bgType: 'solid',
+  bgColor1: '#181c22',
+  bgColor2: '#3fbf8f',
+  bgColor3: '#8b7bd8',
+  bgImage: null,
+  layers: [],
+  selectedId: null,
+};
+let history = [];
+let dragging = null, dragOffset = {x:0,y:0};
+
+function pushHistory(){
+  history.push(JSON.stringify(state.layers));
+  if(history.length > 25) history.shift();
+}
+function undo(){
+  if(!history.length){ showToast('Kuch undo karne ke liye nahi hai'); return; }
+  state.layers = JSON.parse(history.pop());
+  state.selectedId = null;
+  render(); renderLayerList(); renderStyleEditor();
+}
+function clearCanvas(){
+  if(!confirm('Poster clear karna hai? Ye undo nahi ho sakta.')) return;
+  pushHistory();
+  state.layers = [];
+  state.bgImage = null;
+  state.selectedId = null;
+  render(); renderLayerList(); renderStyleEditor();
+}
+
+function uid(){ return 'l_' + Math.random().toString(36).slice(2,9); }
+
+function addTextLayer(kind){
+  pushHistory();
+  const presets = {
+    heading:  {content:'YOUR HEADLINE HERE', fontSize: Math.round(state.h*0.09), bold:true},
+    subheading:{content:'Supporting subheading text', fontSize: Math.round(state.h*0.045), bold:false},
+    body:     {content:'Add your details here', fontSize: Math.round(state.h*0.03), bold:false},
+  };
+  const p = presets[kind] || presets.body;
+  const layer = {
+    id: uid(), type:'text',
+    content: p.content,
+    x: state.w/2, y: state.h/2,
+    fontSize: p.fontSize,
+    fontFamily: 'Syne',
+    color: '#ffffff',
+    bold: p.bold, italic:false,
+    align:'center'
+  };
+  state.layers.push(layer);
+  state.selectedId = layer.id;
+  render(); renderLayerList(); renderStyleEditor();
+}
+
+function selectLayer(id){
+  state.selectedId = id;
+  render(); renderLayerList(); renderStyleEditor();
+}
+function getSelected(){ return state.layers.find(l=>l.id===state.selectedId); }
+
+function updateSelected(patch){
+  const l = getSelected();
+  if(!l) return;
+  Object.assign(l, patch);
+  render(); renderLayerList();
+}
+function toggleStyle(prop){
+  const l = getSelected(); if(!l) return;
+  l[prop] = !l[prop];
+  render(); renderStyleEditor();
+}
+function deleteSelected(){
+  const l = getSelected(); if(!l) return;
+  pushHistory();
+  state.layers = state.layers.filter(x=>x.id!==l.id);
+  state.selectedId = null;
+  render(); renderLayerList(); renderStyleEditor();
+}
+
+/* ---- Background ---- */
+function setBgType(type){
+  state.bgType = type;
+  document.getElementById('bgSolidBtn').classList.toggle('active', type==='solid');
+  document.getElementById('bgGradBtn').classList.toggle('active', type==='gradient');
+  document.getElementById('solidField').style.display = type==='solid' ? 'block':'none';
+  document.getElementById('gradField').style.display = type==='gradient' ? 'block':'none';
+  render();
+}
+function setBgColor(){
+  state.bgColor1 = document.getElementById('bgColor1').value;
+  render();
+}
+document.getElementById('gradColor1').addEventListener('input', e=>{ state.bgColor2 = e.target.value; render(); });
+document.getElementById('gradColor2').addEventListener('input', e=>{ state.bgColor3 = e.target.value; render(); });
+
+function triggerImageUpload(){ document.getElementById('bgImageInput').click(); }
+document.getElementById('bgImageInput').addEventListener('change', function(e){
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    const img = new Image();
+    img.onload = ()=>{ state.bgImage = img; render(); };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ---- Sizes ---- */
+function renderSizeGrid(){
+  const grid = document.getElementById('sizeGrid');
+  grid.innerHTML = '';
+  SIZES.forEach(s=>{
+    const btn = document.createElement('button');
+    btn.className = 'size-btn' + (s.id===state.sizeId ? ' active':'');
+    btn.innerHTML = `${s.name}<span>${s.w}×${s.h}</span>`;
+    btn.onclick = ()=>{
+      state.sizeId = s.id; state.w = s.w; state.h = s.h;
+      canvas.width = s.w; canvas.height = s.h;
+      document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    };
+    grid.appendChild(btn);
+  });
+}
+
+/* ---- Templates ---- */
+const TEMPLATES = [
+  {id:'t1', name:'Big Sale', free:true, grad:['#e0654f','#a83a2c'], layers:[
+    {content:'MEGA SALE', y:0.35, size:0.11, color:'#fff', bold:true},
+    {content:'FLAT 50% OFF', y:0.52, size:0.055, color:'#ffe9b0', bold:true},
+    {content:'This Week Only · Visit Us Today', y:0.68, size:0.03, color:'#fff', bold:false}]},
+  {id:'t2', name:'Grand Opening', free:true, grad:['#3fbf8f','#1f7a58'], layers:[
+    {content:'GRAND OPENING', y:0.32, size:0.09, color:'#fff', bold:true},
+    {content:'We Are Now Open!', y:0.5, size:0.05, color:'#eafff5', bold:false},
+    {content:'Visit us this weekend', y:0.65, size:0.032, color:'#fff', bold:false}]},
+  {id:'t3', name:'Diwali Offer', free:true, grad:['#d4af6a','#8b3f1f'], layers:[
+    {content:'Happy Diwali', y:0.3, size:0.1, color:'#fff', bold:true},
+    {content:'Festive Season Offer', y:0.48, size:0.05, color:'#ffe9b0', bold:false},
+    {content:'Shop Now & Save More', y:0.66, size:0.032, color:'#fff', bold:false}]},
+  {id:'t4', name:'Hiring Now', free:false, grad:['#8b7bd8','#4a3f8a'], layers:[
+    {content:"WE'RE HIRING", y:0.32, size:0.1, color:'#fff', bold:true},
+    {content:'Join Our Growing Team', y:0.5, size:0.045, color:'#e8e4ff', bold:false},
+    {content:'Apply Today · Walk-ins Welcome', y:0.66, size:0.03, color:'#fff', bold:false}]},
+  {id:'t5', name:'GST Reminder', free:false, grad:['#1e2a3a','#0d3b5c'], layers:[
+    {content:'GST Filing Reminder', y:0.32, size:0.075, color:'#fff', bold:true},
+    {content:'Due Date: 20th of this month', y:0.5, size:0.04, color:'#a9d7ff', bold:false},
+    {content:'File on time. Avoid penalty.', y:0.66, size:0.032, color:'#fff', bold:false}]},
+  {id:'t6', name:'New Year', free:false, grad:['#181c22','#d4af6a'], layers:[
+    {content:'HAPPY NEW YEAR', y:0.35, size:0.09, color:'#fff', bold:true},
+    {content:'Wishing you growth & success', y:0.55, size:0.038, color:'#f0d9a8', bold:false}]},
+  {id:'t7', name:'Limited Offer', free:false, grad:['#e0654f','#d4af6a'], layers:[
+    {content:'LIMITED TIME OFFER', y:0.34, size:0.08, color:'#fff', bold:true},
+    {content:'Book Before Slots Fill Up', y:0.55, size:0.04, color:'#fff', bold:false}]},
+  {id:'t8', name:'Event Invite', free:false, grad:['#3fbf8f','#8b7bd8'], layers:[
+    {content:"YOU'RE INVITED", y:0.32, size:0.09, color:'#fff', bold:true},
+    {content:'Join us for a special event', y:0.52, size:0.04, color:'#fff', bold:false},
+    {content:'Date · Time · Venue', y:0.68, size:0.032, color:'#eafff5', bold:false}]},
+];
+// pad remaining templates programmatically for library depth (kept simple variants)
+['New Launch','Weekend Special','Client Testimonial','Free Consultation','Webinar Invite','Business Anniversary','Referral Bonus','Tax Season Alert','Client Appreciation','Course Enrollment']
+  .forEach((name,i)=>{
+    const grads = [['#0d3b5c','#3fbf8f'],['#4a3f8a','#e0654f'],['#181c22','#8b7bd8'],['#d4af6a','#1e2a3a'],['#8b3f1f','#3fbf8f']];
+    TEMPLATES.push({id:'gen'+i, name, free:false, grad: grads[i%grads.length], layers:[
+      {content:name.toUpperCase(), y:0.35, size:0.08, color:'#fff', bold:true},
+      {content:'Customize this template', y:0.55, size:0.035, color:'#fff', bold:false}
+    ]});
+  });
+
+function renderTemplates(){
+  const list = document.getElementById('tmplList');
+  list.innerHTML = '';
+  TEMPLATES.forEach(t=>{
+    const locked = !t.free && !isUnlocked();
+    const card = document.createElement('div');
+    card.className = 'tmpl-card';
+    card.innerHTML = `
+      <div class="tmpl-preview" style="background:linear-gradient(135deg,${t.grad[0]},${t.grad[1]});">${t.name}</div>
+      <div class="tmpl-label">${t.free ? 'Free' : (locked ? 'Pro' : 'Pro ✓')}${locked ? `<span class="tmpl-lock">🔒</span>` : ''}</div>
+    `;
+    card.onclick = ()=> locked ? openUnlockModal() : applyTemplate(t);
+    list.appendChild(card);
+  });
+}
+function applyTemplate(t){
+  pushHistory();
+  state.bgType = 'gradient';
+  state.bgColor2 = t.grad[0];
+  state.bgColor3 = t.grad[1];
+  document.getElementById('bgSolidBtn').classList.remove('active');
+  document.getElementById('bgGradBtn').classList.add('active');
+  document.getElementById('solidField').style.display = 'none';
+  document.getElementById('gradField').style.display = 'block';
+  document.getElementById('gradColor1').value = t.grad[0];
+  document.getElementById('gradColor2').value = t.grad[1];
+  state.bgImage = null;
+  state.layers = t.layers.map(l=>({
+    id: uid(), type:'text', content: l.content,
+    x: state.w/2, y: state.h * l.y,
+    fontSize: Math.round(state.h * l.size),
+    fontFamily:'Syne', color:l.color, bold:l.bold, italic:false, align:'center'
+  }));
+  state.selectedId = null;
+  render(); renderLayerList(); renderStyleEditor();
+  showToast(`Template "${t.name}" applied`);
+}
+
+/* ---- Layer list panel ---- */
+function renderLayerList(){
+  const list = document.getElementById('layerList');
+  list.innerHTML = '';
+  if(!state.layers.length){ list.innerHTML = '<div class="empty-note">Koi layer nahi hai</div>'; return; }
+  [...state.layers].reverse().forEach(l=>{
+    const item = document.createElement('div');
+    item.className = 'layer-item' + (l.id===state.selectedId ? ' active':'');
+    const label = l.content.slice(0,22) + (l.content.length>22?'…':'');
+    item.innerHTML = `<span>📝 ${label}</span><div class="li-actions"><button title="Delete">✕</button></div>`;
+    item.onclick = (e)=>{ if(e.target.tagName==='BUTTON') return; selectLayer(l.id); };
+    item.querySelector('button').onclick = (e)=>{ e.stopPropagation(); pushHistory(); state.layers = state.layers.filter(x=>x.id!==l.id); if(state.selectedId===l.id) state.selectedId=null; render(); renderLayerList(); renderStyleEditor(); };
+    list.appendChild(item);
+  });
+}
+
+/* ---- Style editor panel ---- */
+const SWATCHES = ['#ffffff','#0b0d10','#d4af6a','#3fbf8f','#8b7bd8','#e0654f','#f0d9a8','#a9d7ff'];
+function initSwatches(){
+  const wrap = document.getElementById('colorSwatches');
+  SWATCHES.forEach(c=>{
+    const sw = document.createElement('div');
+    sw.className = 'swatch'; sw.style.background = c;
+    sw.onclick = ()=>{ updateSelected({color:c}); document.getElementById('txtColor').value=c; };
+    wrap.appendChild(sw);
+  });
+}
+function renderStyleEditor(){
+  const l = getSelected();
+  const editor = document.getElementById('styleEditor');
+  const none = document.getElementById('noSelection');
+  if(!l){ editor.style.display='none'; none.style.display='block'; return; }
+  editor.style.display='block'; none.style.display='none';
+  document.getElementById('txtContent').value = l.content;
+  document.getElementById('txtSize').value = l.fontSize;
+  document.getElementById('txtFont').value = l.fontFamily;
+  document.getElementById('txtColor').value = rgbToHex(l.color);
+  document.getElementById('boldBtn').classList.toggle('active', !!l.bold);
+  document.getElementById('italicBtn').classList.toggle('active', !!l.italic);
+}
+function rgbToHex(c){
+  if(c.startsWith('#')) return c;
+  return '#ffffff';
+}
+
+/* ==================================================================
+   RENDER
+================================================================== */
+function render(){
+  const w = state.w, h = state.h;
+  ctx.clearRect(0,0,w,h);
+
+  // background
+  if(state.bgImage){
+    drawImageCover(state.bgImage, 0,0,w,h);
+    ctx.fillStyle = 'rgba(0,0,0,.28)';
+    ctx.fillRect(0,0,w,h);
+  } else if(state.bgType==='gradient'){
+    const g = ctx.createLinearGradient(0,0,w,h);
+    g.addColorStop(0, state.bgColor2);
+    g.addColorStop(1, state.bgColor3);
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,w,h);
+  } else {
+    ctx.fillStyle = state.bgColor1;
+    ctx.fillRect(0,0,w,h);
+  }
+
+  // layers
+  state.layers.forEach(l=>{
+    ctx.save();
+    const weight = l.bold ? '800' : '500';
+    const style = l.italic ? 'italic' : 'normal';
+    ctx.font = `${style} ${weight} ${l.fontSize}px "${l.fontFamily}"`;
+    ctx.fillStyle = l.color;
+    ctx.textAlign = l.align;
+    ctx.textBaseline = 'middle';
+    ctx.shadowColor = 'rgba(0,0,0,.35)';
+    ctx.shadowBlur = 8;
+    const lines = wrapText(l.content, w*0.86, ctx);
+    const lineH = l.fontSize * 1.18;
+    const startY = l.y - ((lines.length-1)*lineH)/2;
+    lines.forEach((ln,i)=> ctx.fillText(ln, l.x, startY + i*lineH));
+    if(l.id===state.selectedId){
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = '#3fbf8f';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([6,5]);
+      const totalH = lines.length * lineH;
+      const maxW = Math.max(...lines.map(ln=>ctx.measureText(ln).width));
+      let boxX = l.x - maxW/2 - 14;
+      if(l.align==='left') boxX = l.x - 14;
+      if(l.align==='right') boxX = l.x - maxW - 14;
+      ctx.strokeRect(boxX, l.y - totalH/2 - 10, maxW+28, totalH+20);
+      ctx.setLineDash([]);
+    }
+    ctx.restore();
+  });
+
+  // watermark for free version
+  if(!isUnlocked()){
+    ctx.save();
+    ctx.globalAlpha = 0.55;
+    ctx.font = `600 ${Math.round(w*0.028)}px "DM Mono"`;
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'bottom';
+    ctx.shadowColor='rgba(0,0,0,.5)'; ctx.shadowBlur=6;
+    ctx.fillText('Made with IncomeAIHub', w - w*0.03, h - h*0.025);
+    ctx.restore();
+  }
+}
+function wrapText(text, maxWidth, ctx2d){
+  const words = text.split(' ');
+  const lines = []; let cur = '';
+  words.forEach(word=>{
+    const test = cur ? cur + ' ' + word : word;
+    if(ctx2d.measureText(test).width > maxWidth && cur){
+      lines.push(cur); cur = word;
+    } else cur = test;
+  });
+  if(cur) lines.push(cur);
+  return lines.length ? lines : [''];
+}
+function drawImageCover(img,x,y,w,h){
+  const ir = img.width/img.height, tr = w/h;
+  let sx,sy,sw,sh;
+  if(ir > tr){ sh = img.height; sw = sh*tr; sx=(img.width-sw)/2; sy=0; }
+  else { sw = img.width; sh = sw/tr; sx=0; sy=(img.height-sh)/2; }
+  ctx.drawImage(img, sx,sy,sw,sh, x,y,w,h);
+}
+
+/* ==================================================================
+   CANVAS INTERACTION — drag to move text layers
+================================================================== */
+function getCanvasPoint(evt){
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+  const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+  return { x: (clientX-rect.left)*scaleX, y:(clientY-rect.top)*scaleY };
+}
+function hitTest(pt){
+  for(let i=state.layers.length-1;i>=0;i--){
+    const l = state.layers[i];
+    ctx.font = `${l.bold?'800':'500'} ${l.fontSize}px "${l.fontFamily}"`;
+    const lines = wrapText(l.content, state.w*0.86, ctx);
+    const lineH = l.fontSize*1.18;
+    const totalH = lines.length*lineH;
+    const maxW = Math.max(...lines.map(ln=>ctx.measureText(ln).width));
+    let boxX = l.x - maxW/2;
+    if(l.align==='left') boxX = l.x;
+    if(l.align==='right') boxX = l.x - maxW;
+    const boxY = l.y - totalH/2;
+    if(pt.x>=boxX-14 && pt.x<=boxX+maxW+14 && pt.y>=boxY-10 && pt.y<=boxY+totalH+10) return l;
+  }
+  return null;
+}
+function startDrag(evt){
+  const pt = getCanvasPoint(evt);
+  const hit = hitTest(pt);
+  if(hit){
+    pushHistory();
+    dragging = hit;
+    dragOffset = {x: pt.x - hit.x, y: pt.y - hit.y};
+    state.selectedId = hit.id;
+    render(); renderLayerList(); renderStyleEditor();
+  } else {
+    state.selectedId = null;
+    render(); renderStyleEditor();
+  }
+}
+function moveDrag(evt){
+  if(!dragging) return;
+  evt.preventDefault();
+  const pt = getCanvasPoint(evt);
+  dragging.x = pt.x - dragOffset.x;
+  dragging.y = pt.y - dragOffset.y;
+  render();
+}
+function endDrag(){ dragging = null; }
+
+canvas.addEventListener('mousedown', startDrag);
+canvas.addEventListener('mousemove', moveDrag);
+window.addEventListener('mouseup', endDrag);
+canvas.addEventListener('touchstart', startDrag, {passive:true});
+canvas.addEventListener('touchmove', moveDrag, {passive:false});
+window.addEventListener('touchend', endDrag);
+window.addEventListener('keydown', e=>{
+  if(e.key==='Delete' || e.key==='Backspace'){
+    if(document.activeElement.tagName==='TEXTAREA' || document.activeElement.tagName==='INPUT') return;
+    if(state.selectedId) deleteSelected();
+  }
+});
+
+/* ==================================================================
+   DOWNLOAD — high-res export
+================================================================== */
+function downloadPoster(){
+  if(!isUnlocked()){
+    showToast('Free version mein watermark ke saath download hota hai. Pro unlock karke hataayein.');
+  }
+  const link = document.createElement('a');
+  link.download = `poster-${state.sizeId}-${Date.now()}.png`;
+  link.href = canvas.toDataURL('image/png', 1.0);
+  link.click();
+  showToast('✓ Poster downloaded');
+}
+
+/* ==================================================================
+   AI CAPTION SUGGESTIONS (ai-proxy in production, static in demo)
+================================================================== */
+async function generateCaptions(){
+  const topic = document.getElementById('aiTopic').value.trim();
+  if(!topic){ showToast('Pehle topic likhein'); return; }
+  const tipsWrap = document.getElementById('aiTips');
+  tipsWrap.innerHTML = '<span class="ai-tip">Generating...</span>';
+
+  if(!isUnlocked() || CONFIG.DEMO_MODE){
+    setTimeout(()=>{
+      const demo = [
+        `${topic} — Limited Time Only`,
+        `Big News: ${topic}!`,
+        `Don't Miss Out — ${topic}`,
+        `${topic} Starts Today`
+      ];
+      renderAiTips(demo);
+      if(!isUnlocked()) showToast('Demo suggestions — Pro unlock karke real AI captions paayein');
+    }, 500);
+    return;
+  }
+
+  try{
+    const res = await fetch(`${CONFIG.SUPABASE_URL}/functions/v1/ai-proxy`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':CONFIG.SUPABASE_ANON_KEY},
+      body: JSON.stringify({ tool_id: CONFIG.TOOL_ID, prompt: `Give 4 short punchy poster captions in English for: ${topic}` })
+    });
+    const data = await res.json();
+    renderAiTips(data.suggestions || []);
+  }catch(e){
+    showToast('AI suggestions abhi available nahi hain');
+  }
+}
+function renderAiTips(items){
+  const wrap = document.getElementById('aiTips');
+  wrap.innerHTML = '';
+  items.forEach(text=>{
+    const tip = document.createElement('span');
+    tip.className = 'ai-tip'; tip.textContent = text;
+    tip.onclick = ()=>{
+      pushHistory();
+      const layer = { id:uid(), type:'text', content:text, x:state.w/2, y:state.h*0.5,
+        fontSize:Math.round(state.h*0.06), fontFamily:'Syne', color:'#ffffff', bold:true, italic:false, align:'center' };
+      state.layers.push(layer); state.selectedId = layer.id;
+      render(); renderLayerList(); renderStyleEditor();
+    };
+    wrap.appendChild(tip);
+  });
+}
+
+/* ==================================================================
+   INIT
+================================================================== */
+document.getElementById('txtColor').addEventListener('input', e=> updateSelected({color:e.target.value}));
+
+function init(){
+  canvas.width = state.w; canvas.height = state.h;
+  renderSizeGrid();
+  renderTemplates();
+  renderLayerList();
+  renderStyleEditor();
+  initSwatches();
+  render();
+  checkUnlockOnLoad();
+}
+init();
+</script>
+</body>
+</html>
